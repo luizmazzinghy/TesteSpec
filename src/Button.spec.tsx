@@ -1,11 +1,21 @@
 import { Buttom } from "./Button";
 import { render, screen, logRoles, fireEvent } from "@testing-library/react";
+import App from "./App";
+import "@testing-library/jest-dom";
 
 test("Está renderizando?", () => {
   const onClick = jest.fn();
   const label = "Label Test";
   render(<Buttom onClick={onClick} label={label} />);
   screen.getAllByRole("button", { name: label });
+});
+
+test("Renderizar o Titulo teste", async () => {
+  render(<App />);
+
+  const elementoTitulo = await screen.getByText("Titulo teste");
+  expect(elementoTitulo.textContent).toStrictEqual("Titulo teste");
+  expect(screen.getByText("Titulo teste")).toBeInTheDocument();
 });
 
 test("Se eu clicar vai chamar a função correta?", () => {
